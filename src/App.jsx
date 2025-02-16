@@ -25,7 +25,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [tredingMovies, setTrendingMovies] = useState([]);
+  const [trendingMovies, setTrendingMovies] = useState([]);
   const [errorMessageTrending, setErrorMessageTrending] = useState("");
   const [isLoadingTrending, setIsLoadingTrending] = useState("");
 
@@ -68,7 +68,7 @@ const App = () => {
     try {
       setIsLoadingTrending(true);
       const movies = await getTrendingMovies();
-      setTrendingMovies(movies);
+      setTrendingMovies(movies || []);
     } catch (err) {
       console.log(`Error fetching trending movies: ${err}`);
       setErrorMessageTrending(`Error fetching trending movies.`);
@@ -104,9 +104,9 @@ const App = () => {
           ) : errorMessageTrending ? (
             <p className="text-red-500">{errorMessageTrending}</p>
           ) : (
-            tredingMovies.length > 0 && (
+            trendingMovies.length > 0 && (
               <ul>
-                {tredingMovies.map((movie, index) => (
+                {trendingMovies.map((movie, index) => (
                   <li key={movie.$id}>
                     <p>{index + 1}</p>
                     <img src={movie.poster_url} alt={movie.title} />
